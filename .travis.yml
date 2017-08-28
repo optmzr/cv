@@ -4,7 +4,7 @@ before_install:
 - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full
 script:
 - mkdir _build
-- xelatex -interaction=nonstopmode -halt-on-error -output-directory _build cv.tex
+- xelatex -interaction=nonstopmode -halt-on-error -output-directory _build cv-william-wennerstrom.tex
 deploy:
   provider: releases
   file:
