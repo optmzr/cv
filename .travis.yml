@@ -1,10 +1,10 @@
 sudo: required
 dist: trusty
 before_install:
-- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full rubber ubuntustudio-font-meta
 script:
 - mkdir _build
-- xelatex -interaction=nonstopmode -halt-on-error -output-directory _build cv-william-wennerstrom.tex
+- make
 deploy:
   provider: releases
   file:
