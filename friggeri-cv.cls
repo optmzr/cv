@@ -1,8 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesClass{friggeri-cv}[2012/04/30 CV class]
+\ProvidesClass{k-cv}[2015/11/29 CV class]
 \NeedsTeXFormat{LaTeX2e}
 
 \DeclareOption{print}{\def\@cv@print{}}
@@ -12,6 +8,10 @@
 \ProcessOptions\relax
 \LoadClass{article}
 
+% to avoid warnings, copy only one symbol from stmaryrd
+\DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
+\DeclareMathSymbol\rightarrowtriangle\mathrel{stmry}{"5F}
+\renewcommand{\to}{$\rightarrowtriangle$}
 
 %%%%%%%%%%
 % Colors %
@@ -21,16 +21,15 @@
 
 \definecolor{white}{RGB}{255,255,255}
 
-\definecolor{darkgray}{HTML}{333333}
-\definecolor{gray}{HTML}{4D4D4D}
-\definecolor{lightgray}{HTML}{999999}
+\definecolor{darkgray}{gray}{.2}
+\definecolor{gray}{gray}{.35}
+\definecolor{lightgray}{gray}{.35}
 
 \definecolor{green}{HTML}{C2E15F}
 \definecolor{orange}{HTML}{FDA333}
 \definecolor{purple}{HTML}{D3A4F9}
 \definecolor{red}{HTML}{FB4485}
 \definecolor{blue}{HTML}{6CE0F1}
-\definecolor{pblue}{HTML}{0395DE}
 
 \ifdefined\@cv@print
   \colorlet{green}{gray}
@@ -41,8 +40,8 @@
   \colorlet{fillheader}{white}
   \colorlet{header}{gray}
 \else
-  \colorlet{fillheader}{white}
-  \colorlet{header}{gray}
+  \colorlet{fillheader}{gray}
+  \colorlet{header}{white}
 \fi
 \colorlet{textcolor}{gray}
 \colorlet{headercolor}{gray}
@@ -51,43 +50,15 @@
 % Fonts %
 %%%%%%%%%
 
-% \RequirePackage[quiet]{fontspec}
-% \RequirePackage[math-style=TeX,vargreek-shape=unicode]{unicode-math}
-% 
-% \newfontfamily\bodyfont[]{Helvetica Neue}
-% \newfontfamily\thinfont[]{Helvetica Neue UltraLight}
-% \newfontfamily\headingfont[]{Helvetica Neue Condensed Bold}
-% 
-% \defaultfontfeatures{Mapping=tex-text}
-% \setmainfont[Mapping=tex-text, Color=textcolor]{Helvetica Neue Light}
-% 
-% \setmathfont{XITS Math}
+\RequirePackage{microtype}
+\RequirePackage[default]{lato}
 
-%%% modified by Karol Kozioł for ShareLaTex use
-\RequirePackage[quiet]{fontspec}
-\RequirePackage[math-style=TeX]{unicode-math}
+% \newcommand{\normalfont}{\fontseries{l}\selectfont}
+\newcommand{\bodyfont}{\fontseries{l}\selectfont}
+\newcommand{\thinfont}{\fontseries{el}\selectfont}
+\newcommand{\headingfont}{\fontseries{b}\selectfont}
 
-\newfontfamily\bodyfont
-[BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf]
-{texgyreheros-regular.otf}
-\newfontfamily\thinfont[]{Lato-Light.ttf}
-% or for thiner version
-%\newfontfamily\thinfont[]{Lato-Hairline.ttf}
-\newfontfamily\headingfont[]{texgyreheros-bold.otf}
-
-\defaultfontfeatures{Mapping=tex-text}
-\setmainfont
-[Mapping=tex-text, Color=textcolor,
-BoldFont=texgyreheros-bold.otf,
-ItalicFont=texgyreheros-italic.otf,
-BoldItalicFont=texgyreheros-bolditalic.otf
-]
-{texgyreheros-regular.otf}
-
-\setmathfont{texgyreheros-regular.otf}
-%%%
+\RequirePackage[none]{hyphenat} % No hyphenation
 
 %%%%%%%%%%
 % Header %
@@ -103,14 +74,28 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 
 \newcommand{\header}[3]{%
   \begin{tikzpicture}[remember picture,overlay]
-    \node [rectangle, fill=fillheader, anchor=north, minimum width=\paperwidth, minimum height=3cm] (box) at (current page.north){};
+    \node [rectangle, fill=fillheader, anchor=north, minimum width=\paperwidth,
+minimum height=4cm, yshift=0.5mm] (box) at (current page.north){};
     \node [anchor=center] (name) at (box) {%
-      \fontsize{30pt}{62pt}\color{header}%
+      \fontsize{48pt}{72pt}\color{header}%
       {\thinfont #1}{\bodyfont  #2}
     };
     \node [anchor=north] at (name.south) {%
-      \fontsize{14pt}{24pt}\color{pblue}%
-      \bodyfont #3%
+      \fontsize{18pt}{24pt}\color{header}%
+      \thinfont #3%
+    };
+  \end{tikzpicture}
+  \vspace{2.5cm}
+  \vspace{-2\parskip}
+}
+
+\newcommand{\smallheader}[2]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node [rectangle, fill=fillheader, anchor=north, minimum width=\paperwidth,
+minimum height=2cm, yshift=0.5mm] (box) at (current page.north){};
+    \node [anchor=center] (name) at (box) {%
+      \fontsize{24pt}{36pt}\color{header}%
+      {\thinfont #1}{\bodyfont  #2}
     };
   \end{tikzpicture}
   \vspace{0.5cm}
@@ -123,33 +108,17 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 %%%%%%%%%%%%%
 \RequirePackage{parskip}
 
-%\newcounter{colorCounter}
-%\def\@sectioncolor#1#2#3{%
-%  {%
-%    \color{%
-%      \ifcase\value{colorCounter}%
-%        blue\or%
-%        red\or%
-%        orange\or%
-%        green\or%
-%        purple\else%
-%        headercolor\fi%
-%    } #1#2#3%
-%  }%
-%  \stepcounter{colorCounter}%
-%}
-
 \newcounter{colorCounter}
 \def\@sectioncolor#1#2#3{%
   {%
     \color{%
       \ifcase\value{colorCounter}%
-        pblue\or%
-        pblue\or%
-        pblue\or%
-        pblue\or%
-        pblue\else%
-        pblue\fi%
+        blue\or%
+        red\or%
+        orange\or%
+        green\or%
+        purple\else%
+        headercolor\fi%
     } #1#2#3%
   }%
   \stepcounter{colorCounter}%
@@ -170,8 +139,7 @@ BoldItalicFont=texgyreheros-bolditalic.otf
   \par\vspace{.25\parskip}%
 }
 
-\pagestyle{empty}
-
+\pagestyle{empty} % removes page number
 
 %%%%%%%%%%%%%%%%%%%%
 % List environment %
@@ -179,19 +147,32 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 
 \setlength{\tabcolsep}{0pt}
 \newenvironment{entrylist}{%
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}p{2cm}l}
 }{%
   \end{tabular*}
 }
 \renewcommand{\bfseries}{\headingfont\color{headercolor}}
 \newcommand{\entry}[4]{%
-  #1&\parbox[t]{11.8cm}{%
+\hangindent=3mm \hangafter1%
+  {\leavevmode\color{gray}\small #1}&\parbox[t]{11.8cm}{%
     \textbf{#2}%
     \hfill%
-    {\footnotesize\addfontfeature{Color=pblue} #3}\\%
-    #4\vspace{\parsep}%
+    {\footnotesize\color{gray} \bodyfont #3}\\%
+    \bodyfont #4\vspace{\parsep}%
   }\\}
 
+%%%%%%%%%%%%%%%%%%%%%%%
+% Manual Bibliography %
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% each item is a manual entry, since a bibfile is more pain than pleasure
+% for most people's CVs.
+\newcommand{\bibentry}[3]{%
+  {\bfseries #1}\\%
+  \hangindent=5mm \hangafter1%
+  {\color{black} \bodyfont #2\\%
+  {\footnotesize \bodyfont #3}}%
+  }%
 
 %%%%%%%%%%%%%%
 % Side block %
@@ -203,9 +184,9 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 \newenvironment{aside}{%
   \let\oldsection\section
   \renewcommand{\section}[1]{
-    \par\vspace{\baselineskip}{\Large\headingfont\color{pblue} ##1}
+    \par\vspace{\baselineskip}{\Large\headingfont\color{headercolor} ##1}
   }
-  \begin{textblock}{3.6}(2.0, 0.55)
+  \begin{textblock}{3.6}(1.5, 4.33)
   \begin{flushright}
   \obeycr
 }{%
@@ -216,117 +197,10 @@ BoldItalicFont=texgyreheros-bolditalic.otf
 }
 
 %%%%%%%%%%%%%%%%
-% Bibliography %
-%%%%%%%%%%%%%%%%
-
-\RequirePackage[style=verbose, maxnames=99, sorting=ydnt]{biblatex}
-
-\DeclareFieldFormat[article]{title}{#1\par}
-\DeclareFieldFormat[inproceedings]{title}{#1\par}
-\DeclareFieldFormat[misc]{title}{#1\par}
-\DeclareFieldFormat[report]{title}{#1\par}
-
-\DeclareBibliographyDriver{article}{%
-  \printfield{title}%
-  \newblock%
-  \printnames{author}%
-  \par%
-  \newblock%
-  {%
-    \footnotesize\addfontfeature{Color=lightgray}\itshape%
-    \usebibmacro{journal+issuetitle}%
-    \setunit{\space}%
-    \printfield{pages}%
-    \newunit%
-    \printlist{publisher}%
-    \setunit*{\addcomma\space}%
-    \printfield{year}%
-    \newunit%
-  }
-  \par\vspace{0.3\baselineskip}
-}
-
-\DeclareBibliographyDriver{inproceedings}{%
-  \printfield{title}%
-  \newblock%
-  \printnames{author}%
-  \par%
-  \newblock%
-  {%
-    \footnotesize\addfontfeature{Color=lightgray}%
-    \printfield{booktitle}%
-    \setunit{\addcomma\space}%
-    \printfield{year}%
-    \setunit{\addcomma\space}%
-    \printlist{location}%
-    \newunit%
-  }
-  \par\vspace{0.3\baselineskip}
-}
-
-\DeclareBibliographyDriver{misc}{%
-  \printfield{title}%
-  \newblock%
-  \printnames{author}%
-  \par%
-  \newblock%
-  {%
-    \footnotesize\addfontfeature{Color=lightgray}\itshape%
-    \printfield{booktitle}%
-    \setunit*{\addcomma\space}%
-    \printfield{note}%
-    \setunit*{\addcomma\space}%
-    \printfield{year}%
-    \setunit{\addcomma\space}%
-    \printlist{location}%
-    \newunit%
-  }
-  \par\vspace{0.3\baselineskip}
-}
-
-\DeclareBibliographyDriver{report}{%
-  \printfield{title}%
-  \newblock%
-  \printnames{author}%
-  \par%
-  \newblock%
-  {%
-    \footnotesize\addfontfeature{Color=lightgray}\itshape%
-    \printfield{type}%
-    \setunit{\space}%
-    \printfield{number}%
-    \setunit{\addcomma\space}%
-    \printfield{year}%
-    \newunit%
-  }
-  \par\vspace{0.3\baselineskip}
-}
-
-\DeclareNameFormat{author}{%
-  \small\addfontfeature{Color=lightgray}%
-  \ifblank{##3}{}{##3\space}#1%
-  \ifthenelse{\value{listcount}<\value{liststop}}
-    {\addcomma\space}
-    {}%
-}
-
-\newcommand{\printbibsection}[2]{
-  \begin{refsection}
-    \nocite{*}
-    \printbibliography[sorting=chronological, type={#1}, title={#2}, heading=subbibliography]
-  \end{refsection}
-}
-
-\DeclareSortingScheme{chronological}{
-  \sort[direction=descending]{\field{year}}
-  \sort[direction=descending]{\field{month}}
-}
-
-
-
-%%%%%%%%%%%%%%%%
 % Other tweaks %
 %%%%%%%%%%%%%%%%
 
 \RequirePackage[left=6.1cm,top=2cm,right=1.5cm,bottom=2.5cm,nohead,nofoot]{geometry}
-\RequirePackage{hyperref}
+\RequirePackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks=false}
