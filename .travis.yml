@@ -1,15 +1,17 @@
 sudo: required
 dist: trusty
 before_install:
-- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full rubber ubuntustudio-font-meta
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full
+  rubber ubuntustudio-font-meta
 script:
 - make
 deploy:
   provider: releases
-  file:
-  - _build/cv-william-wennerstrom.pdf
   skip_cleanup: true
   on:
     tags: true
   api_key:
-    secure: GEaqPAwR/lVvrEptsFsVf+Fz1+iGN+AgVhZ2Hx1OEF4oNhwYNS98AM7NsG71SZvA7xIMgSinh1PjHBvtBF1nTmZbMqcOHaStEr752N4Xld2k+p4hF4hBXmyKkv0KtD8JLvX6jBS91/57BT4NKjmSpeKVb0YVwpmkTCYlKe+hTOfa2BxWDFFkDiJCiVPuTjJOexarRB/LDGJyB2K8zG88HO4AuAIAUeDykFrxovDSJTi+AdFzyRyTPB3Pxn0WUlk4/PAnSbsKC4mJ4clrg1yKnqtfzTu/mxtoCWKpApTfOT2XeXX1C2QZ3pOX/MyF39jpwLC8yWo0V1XcPxa1uW1D+7TBHJmKn59br4w2bjRx+Exnfr7GElhzsFIVyGLx/nc4Y9ZDMBaesCXVOiy+IO9IKIzEeELrWAfX2DhVUCxAHl/w0kxPVJX5f1ks0M1nvYLJPW9lk6Q0n6/cWBwh3gsDONBmBhAYB8qHtjucxNyH3+Oxot/qjbcezig5gh4LTtSP1Oun0tmpwNPLBwadE6eB+58HwoCYO5LLX2OKQptaqw13TZoHdLoZR+ndFJlW4UmoPAEkbNdV/zlQmMEHjttq4wMza0g7h49JtXTx0ipnqv0KD/z005lB9bljWzDjd9ctMDuLq9LnYEAGvGUhlHwJooFleHNjxoKv+0kuFd4B+wY=
+    secure: GbkN93x6TIIsRwkGR4V7sDqjL1e3VDNslPVBTTJPWD6ROAMFDR9V+wFjbu9SEDQxKgzoE0VYjUQ/n0wOqHowB9U95nJmopo5BBWzRAl6ULtbpeG6wtFvDUTBeVkXz7KeYTT5hdE2YYCQlr/SiT3+OX14MqspZukw4XZtKEXzlwrQD2jTX6bj8dGo8ahjthxqG6hjvD1XyqRvYpKl46GhNzorGrdWFIfs3M0YPds+naxu2ONUyQ0GeT5HTqtfuwv+1acvi0Xhs5TO4z1WpKAg2ZuJxnJMfw4PHhKNC5yldVLKTN9VH9tZs8ATC+XHH+rA2O/aT/mZhKjslMrxuFIurj4T6zOfB2kwEJrak4k3KDLU55ESgoihhrsk+Z8oGNqc24NxUzsDyMnGSyzLSLyoQ2PBh6+RwuR/RgIb7HE//W9R1/3/R+K0mUT8OHpp8F+O8X+xsT1R+pSeADiDrpHyHqRBiSxl7Rz03ydgEMirWiV7F0vfjgXJWsRXQy1FHvNpK4P0V6fEy0t/vQVGvIbKYQ9oB/w8sCaWC2iWV/1PGK+d2hY/DY8qy+5qwGcY1pVD3hKkpr51r6az8v9NPNWk56XoFoMuhR9TqkA+kKsacy7r314U9QsbK99HtdpU5cAXTz/2ve36q7oSGh+pzD9O5fcEJXBGVghiFjwp9Sg49sk=
+  file: _build/cv-william-wennerstrom.pdf
+  on:
+    repo: optmzr/cv
