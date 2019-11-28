@@ -1,12 +1,12 @@
-% rubber: set program xelatex
-%!TEX TS-program = xelatex
+% rubber: set program lualatex
+%!TEX TS-program = lualatex
 \documentclass[]{friggeri-cv}
 \usepackage[utf8]{inputenc}
 \usepackage{afterpage}
 \usepackage{hyperref}
 \usepackage{color}
 \usepackage{xcolor}
-\hypersetup{
+\hypersetup{%
     pdftitle={},
     pdfauthor={},
     pdfsubject={},
@@ -20,29 +20,10 @@
 \RequirePackage[absolute,overlay]{textpos}
 \setlength{\TPHorizModule}{1cm}
 \setlength{\TPVertModule}{1cm}
-\renewenvironment{aside}{%
-  \let\oldsection\section
-  \renewcommand{\section}[1]{
-    \par\vspace{\baselineskip}{\Large\headingfont\color{headercolor} ##1}
-  }
-  \begin{textblock}{4.5}(0.5, 0.5)
-  \begin{flushright}
-  \obeycr
-}{%
-  \restorecr
-  \end{flushright}
-  \end{textblock}
-  \let\section\oldsection
-}
 
 \begin{document}
 \header{William}{Wennerström}
       {M.Sc. Student in Computer Science and Engineering}
-
-% Fake text to add separator
-\fcolorbox{white}{gray}{\parbox{\dimexpr\textwidth-2\fboxsep-2\fboxrule}{%
-.....
-}}
 
 % In the aside, each new line forces a line break
 \begin{aside}

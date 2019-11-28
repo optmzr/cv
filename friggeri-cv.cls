@@ -10,7 +10,7 @@
 
 % to avoid warnings, copy only one symbol from stmaryrd
 \DeclareSymbolFont{stmry}{U}{stmry}{m}{n}
-\DeclareMathSymbol\rightarrowtriangle\mathrel{stmry}{"5F}
+\DeclareMathSymbol\rightarrowtriangle\mathrel{stmry}{"5F}%"
 \renewcommand{\to}{$\rightarrowtriangle$}
 
 %%%%%%%%%%
