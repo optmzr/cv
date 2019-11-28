@@ -1,5 +1,6 @@
 SRC=$(wildcard *.tex)
-OPTS=--pdf --into=_build
+OUTDIR=_build
+OPTS=--pdf --into=$(OUTDIR)
 
 
 .PHONY: clean
@@ -7,6 +8,7 @@ OPTS=--pdf --into=_build
 all: $(patsubst %.tex,%.pdf,$(SRC))
 
 %.pdf: %.tex
+	@mkdir -p $(OUTDIR)
 	@rubber $(OPTS) $<
 
 clean:
