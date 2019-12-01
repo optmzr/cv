@@ -4,6 +4,8 @@ before_install:
 - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-full
   rubber ubuntustudio-font-meta
 script:
+- file cv-william-wennerstrom.tex
+- file friggeri-cv.cls
 - make
 deploy:
   provider: releases
