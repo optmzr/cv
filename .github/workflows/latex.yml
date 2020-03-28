@@ -1,15 +1,17 @@
 name: LaTeX
 on: [push]
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
+    env:
+      latex-file: cv-william-wennerstrom.tex
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Compile
         uses: xu-cheng/latex-action@1.2.1
         with:
-          root_file: cv-william-wennerstrom.tex
+          root_file: ${{ env.latex-file }}
           args: -lualatex --file-line-error --interaction=nonstopmode
       - name: Create Release
         id: create_release
@@ -21,12 +23,12 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
+      - name: Upload Release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./_build/cv-william-wennerstrom.pdf
-          asset_name: cv-william-wennerstrom.pdf
+          asset_path: ./${{ env.latex-file }}
+          asset_name: ${{ env.latex-file }}
           asset_content_type: application/pdf
