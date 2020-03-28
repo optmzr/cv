@@ -1,4 +1,4 @@
 # CV William Wennerström
-[![Build Status](https://travis-ci.org/willeponken/cv.svg?branch=master)](https://travis-ci.org/willeponken/cv)
+![LaTeX](https://github.com/wstrm/cv/workflows/LaTeX/badge.svg)
 
-See: https://github.com/willeponken/cv/releases for latest compiled PDF.
+See: https://github.com/wstrm/cv/releases/latest for latest release.
